@@ -52,13 +52,17 @@ export default class ViewHouses extends Component {
     console.log('Listado de casas:', this.state.housesList)
     return (
       <View style={styles.container}>
-        <FlatList data={this.state.housesList} 
-        /*Con renderItem, pasamos parametros de un objeto padre a un hobjeto hijo*/
-        /*valueCell es cada elemento de houseList */
-        renderItem={valueCell => this._renderItem(valueCell)} 
-        keyExtractor={(item, i) => 'Cell' + item.id}
-          extraData={this.state} />
-        {/*keyExtractor es para identificar cada celda con una key. Item es  cada elemento de houseList*/}
+        <FlatList 
+          data={this.state.housesList} 
+          /*Con renderItem, pasamos parametros de un objeto padre a un hobjeto hijo*/
+          /*valueCell es cada elemento de houseList */
+          renderItem={valueCell => this._renderItem(valueCell)} 
+          keyExtractor={(item, i) => 'Cell' + item.id}
+          extraData={this.state} 
+          numColumns={2}
+          style={{paddingTop:40}}
+        />
+          {/*keyExtractor es para identificar cada celda con una key. Item es  cada elemento de houseList*/}
       </View>
     )
   }

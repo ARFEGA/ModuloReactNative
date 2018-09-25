@@ -1,6 +1,6 @@
 
 import React,{Component} from 'react'
-import { TouchableOpacity,Text} from 'react-native'
+import { TouchableOpacity,Image} from 'react-native'
 import styles from './stylesCell'
 
 
@@ -9,24 +9,23 @@ export default class HouseCell extends Component {
     static defaultProps = {
         house: null,
         onHousePress: () => { },
-        selected: null,
-        colorCell: null,
+       
     }
     render() {
         /*La siguiente línea es una Destructuración */
-        const { house, selected, onHousePress, colorCell } = this.props
-        const name = house ? house.nombre : 'Casa sin nombre'
-        const background = selected && selected.id == house.id ?
-            'yellow' :
-            colorCell
+        const { house,onHousePress} = this.props
+        const img = house.image_dir  ? { uri: house.image_dir} : require('../../../resources/place-holder_casas.jpg')
         return (
             <TouchableOpacity 
                 onPress={() => onHousePress(house)}
-                style={[ styles.cellStyle, { backgroundColor: background }]}>
-
-                <Text>
-                    {name}
-                </Text>
+                style={styles.cellStyle}
+                activeOpacity={0.5}> 
+                <Image 
+                    source={img}
+                    style={{width:'100%' ,height:'100%'}}
+                    resizeMode={'cover'}
+                
+                />
             </TouchableOpacity>
         )
     }
