@@ -25,11 +25,15 @@ class ViewHouses extends Component {
 
   _onHouseTaped (house) {
     Alert.alert('CASA:', house.nombre)
+    this.props.onHouseTaped(house)
   }
   _renderItem ({ item }) {
     /*MAndamos onHousePress en lugar de onPress, pues los objetos TouchableOpacity, reciben igualmente el parametro como onPress
     y de esta forma da más claridad al código*/
-    return <HouseCell house={item} onHousePress={v => this._onHouseTaped(v)} />
+    return <HouseCell 
+              house={item} 
+              onHousePress={v => this._onHouseTaped(v)} 
+            />
   }
 
   _renderActivitiIndicator () {
@@ -63,6 +67,7 @@ _renderContent(){
 }
 
   render () {
+    console.log("SelectedHouse:" , this.props.houseSelected)
     return (
       <View style={styles.container}>
         {this._renderContent()}
@@ -74,7 +79,8 @@ _renderContent(){
 const mapStateToProps = (stateRedux) => {
   return {
     isFetching: stateRedux.housesReducer.isFetching,
-    list: stateRedux.housesReducer.list
+    list: stateRedux.housesReducer.list,
+    houseSelected: stateRedux.housesReducer.item
   }
 }
 
@@ -82,6 +88,11 @@ const mapDispatchProps = (dispatch, props) => {
   return {
     fetchHousesList: () => {
       dispatch(HousesActions.fetchHousesList())
+    }
+    ,
+    onHouseTaped:(house) => {
+      dispatch(HousesActions.setItem(house))
+      Actions.characters({title: house.nombre})
     }
   }
 }
