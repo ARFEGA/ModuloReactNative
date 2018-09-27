@@ -1,70 +1,89 @@
 import React, { Component } from 'react'
-import { View, Text, Button, FlatList,TouchableOpacity,Alert } from 'react-native'
+import { View, Text, Button, FlatList, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import styles from './styles'
-import * as api from '../../../api/'
-import {HouseCell} from '../../widgets/'
+import { HouseCell } from '../../widgets/'
+import { fetchHouses } from '../../../api/index'
+import { connect } from 'react-redux'
+import * as HousesActions from '../../../redux/houses/actions'
 
-export default class ViewHouses extends Component {
-
+class ViewHouses extends Component {
+  // Propiedades de componente
   constructor (props) {
     super(props)
     this.state = {
-      housesList: [],
-      selected:null,
+      housesList: []
     }
   }
   componentDidMount () {
-    this.fetchHousesList()
+    this.props.fetchHousesList()
   }
 
-  fetchHousesList () {
-    api.fetchHouses().then(response => {
-      this.setState({ housesList: response.data.records})
-      console.log(response)
-    }).catch(error => {
-      console.log('ERROR EN LLAMADA API:', error)
-      this.setState({ housesList: []})
-    })
-  }
   goToCharacters () {
     Actions.characters({title: 'Pag Characters'})
   }
 
-    _onHouseTaped(house){
-    
-    this.setState({selected:house})
-   
-      Alert.alert("CASA:", house.nombre)
-   
+  _onHouseTaped (house) {
+    Alert.alert('CASA:', house.nombre)
   }
   _renderItem ({ item }) {
     /*MAndamos onHousePress en lugar de onPress, pues los objetos TouchableOpacity, reciben igualmente el parametro como onPress
     y de esta forma da más claridad al código*/
-    return <HouseCell 
-                house={item} 
-                onHousePress={v => this._onHouseTaped(v)} 
-                selected={this.state.selected}
-                colorCell='grey'
-            />
+    return <HouseCell house={item} onHousePress={v => this._onHouseTaped(v)} />
   }
+
+  _renderActivitiIndicator () {
+    // El parametro animating es un boolean que si es verdadero se muestra y sino se oculta.
+    // isFetching puede ser true o false, por lo tanto nos sirve
+    return (
+      <View style={{flex:1 , alignItems:'center' , justifyContent:'center' }}>
+        <ActivityIndicator size='large' color={'yellow'} animating={this.props.isFetching} />
+      </View>
+    )
+  }
+
+_renderContent(){
+  if(this.props.isFetching){
+    return this._renderActivitiIndicator()
+  }else{
+    return(
+      <FlatList
+      data={this.props.list} /*Con renderItem, pasamos parametros de un objeto padre a un hobjeto hijo*/ /*valueCell es cada elemento de houseList */
+      renderItem={valueCell => this._renderItem(valueCell)}
+      /*keyExtractor es para identificar cada celda con una key.
+      Item es  cada elemento de houseList*/
+      keyExtractor={(item, i) => 'Cell' + item.id}
+      extraData={this.state}
+      numColumns={2}
+      style={{ paddingTop: 40 }}
+      /*ListFooterComponent={this._renderActivitiIndicator()} 
+      ListHeaderComponent={()=> this._renderActivitiIndicator()}*/ />
+    )
+  }
+}
+
   render () {
-    console.log('Listado de casas:', this.state.housesList)
     return (
       <View style={styles.container}>
-        <FlatList 
-          data={this.state.housesList} 
-          /*Con renderItem, pasamos parametros de un objeto padre a un hobjeto hijo*/
-          /*valueCell es cada elemento de houseList */
-          renderItem={valueCell => this._renderItem(valueCell)} 
-          keyExtractor={(item, i) => 'Cell' + item.id}
-          extraData={this.state} 
-          numColumns={2}
-          style={{paddingTop:40}}
-        />
-          {/*keyExtractor es para identificar cada celda con una key. Item es  cada elemento de houseList*/}
+        {this._renderContent()}
       </View>
     )
   }
 }
 
+const mapStateToProps = (stateRedux) => {
+  return {
+    isFetching: stateRedux.housesReducer.isFetching,
+    list: stateRedux.housesReducer.list
+  }
+}
+
+const mapDispatchProps = (dispatch, props) => {
+  return {
+    fetchHousesList: () => {
+      dispatch(HousesActions.fetchHousesList())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchProps)(ViewHouses)

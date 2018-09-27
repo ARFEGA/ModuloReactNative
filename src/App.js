@@ -1,28 +1,38 @@
 import React , { Component } from 'react'
-import {StatusBar} from 'react-native'
+import { StatusBar } from 'react-native'
 import { Router, Scene, Actions, Stack } from 'react-native-router-flux'
 import { Houses, Characters } from './components/sections/'
 import * as api from './api/'
 
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { Provider, connect } from 'react-redux'
+import thunk  from 'redux-thunk'
+
+import * as reducers from './redux/' 
+const reducer = combineReducers(reducers) 
+const store = createStore(reducer, applyMiddleware(thunk))
+
 export default class App extends Component {
-componentWillMount(){
-  api.configureAxios()
-  StatusBar.setBarStyle('light-content')
-}
+  componentWillMount () {
+    api.configureAxios()
+    StatusBar.setBarStyle('light-content')
+  }
 
   render () {
     return (
-      <Router>
-        <Stack key='root'>
-          <Scene
-            hideNavBar={true}
-            key='houses'
-            component={Houses}
-            title='Houses'
-            initial={true} />
-          <Scene key='characters' component={Characters} title='Characters' />
-        </Stack>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Stack key='root'>
+            <Scene
+              hideNavBar={true}
+              key='houses'
+              component={Houses}
+              title='Houses'
+              initial={true} />
+            <Scene key='characters' component={Characters} title='Characters' />
+          </Stack>
+        </Router>
+      </Provider>
     )
   }
 }
