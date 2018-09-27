@@ -14,9 +14,7 @@ class ViewCharacters extends Component {
     render () {
         return (
             <View style={ styles.container }>
-             <Text style={{ color: 'yellow', fontWeight: 'bold' }}>
-                 CHARACTERS
-             </Text>
+            
             </View>
         )
   }

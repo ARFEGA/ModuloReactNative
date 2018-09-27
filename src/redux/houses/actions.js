@@ -21,6 +21,7 @@ export function setItem (value) {
 }
 //Dispatch lanza la función reducer de reducer.js
 export function fetchHousesList () {
+  //getState nos aporta el initialState
   return (dispatch, getState) => {
     dispatch(setFetching(true))
     api.fetchHouses()  //Estas spon las llamadas asincronas ue nos permite thunk
