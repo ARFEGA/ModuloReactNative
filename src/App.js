@@ -10,7 +10,9 @@ import thunk  from 'redux-thunk'
 
 import * as reducers from './redux/' 
 const reducer = combineReducers(reducers) 
-const store = createStore(reducer, applyMiddleware(thunk))
+//Pasamos un argumento extra, que será la referencia  a api, por lo que tendremos la referencia a
+//la api injetada en actions.js
+const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)))
 
 export default class App extends Component {
   componentWillMount () {

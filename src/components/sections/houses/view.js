@@ -24,7 +24,7 @@ class ViewHouses extends Component {
   }
 
   _onHouseTaped (house) {
-    Alert.alert('CASA:', house.nombre)
+    //Alert.alert('CASA:', house.nombre)
     this.props.onHouseTaped(house)
   }
   _renderItem ({ item }) {

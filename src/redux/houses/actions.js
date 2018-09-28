@@ -1,5 +1,4 @@
 import * as types from './types'
-import * as api from '../../api/'
 
 function setFetching (value) {
   return {
@@ -22,9 +21,9 @@ export function setItem (value) {
 //Dispatch lanza la función reducer de reducer.js
 export function fetchHousesList () {
   //getState nos aporta el initialState
-  return (dispatch, getState) => {
+  return (dispatch, getState,api) => {
     dispatch(setFetching(true))
-    api.fetchHouses()  //Estas spon las llamadas asincronas ue nos permite thunk
+    api.fetchHouses()  //Estas son las llamadas asincronas ue nos permite thunk
       .then(res => {
         dispatch(setFetching(false))
         dispatch(setList(res.data.records))

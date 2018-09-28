@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
+import * as charactersActions from '../../../redux/characters/actions'
 
 class ViewCharacters extends Component {
 
@@ -14,7 +15,7 @@ class ViewCharacters extends Component {
     render () {
         return (
             <View style={ styles.container }>
-            
+            <Text style={{height:'100%',width:'100%'}}>LALALA</Text>
             </View>
         )
   }
@@ -30,7 +31,7 @@ const mapStateToProps = (stateRedux) => {
 const mapDispatchProps = (dispatch, props) => {
   return {
       fetchHousesCharacters: () => {
-      //dispatch(HousesActions.fetchHousesList())
+        dispatch(charactersActions.fetchHouseCharacters())
     }
   }
 }
