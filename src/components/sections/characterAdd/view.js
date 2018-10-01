@@ -13,6 +13,7 @@ export default class  extends React.Component{
             this.state={
                 name:'',
                 age:'',
+                image:null,
                
             }
             this.options={
@@ -42,13 +43,14 @@ export default class  extends React.Component{
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                let source = { uri: response.uri };
-
+                let preview = { uri: response.uri };
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
+                let data = 'data:image/jpeg;base64,' + response.data;
+                
                 this.setState({
-                    avatarSource: source
+                    image: { preview,data}
                 });
             }
         });
@@ -65,13 +67,13 @@ export default class  extends React.Component{
     }
 
     _renderImageInput(){
-        const imgUri = this.state.avatarSource ? { uri: this.state.avatarSource.uri} : null
-        
+        const imgUri = this.state.image ?  this.state.image.preview : null
+        const imageLabel = this.state.image ? 'Pulsar para cambiar imagen' : 'Pulsar para obtener image.'
         return(
             <View style={{padding:20}}>
-                <Image source={imgUri} style={{width: '100%',height: 200,}} resizeMode={'cover'}/>
-                <TouchableOpacity style={{}} onPress={() => this._onImagePickerTapped()}>
-                    <Text style={{color:'white' , fontWeight:'bold'}}>{'Obtener image.'}</Text>
+                 <TouchableOpacity style={styles.imageContainer} onPress={() => this._onImagePickerTapped()}>
+                    <Image style = {styles.image} source={imgUri} resizeMode={'cover'} />
+                    <Text style={styles.imageText}>{imageLabel}</Text>
                 </TouchableOpacity>
             </View>
         )

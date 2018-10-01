@@ -4,7 +4,9 @@ import {connect} from 'react-redux'
 const mapStateToProps= (stateRedux) => {
     return {
         
-        //character: stateRedux.charactersReducer.item,
+        house: stateRedux.housesReducer.item,
+        isFetching: stateRedux.charactersReducer.isFetching || stateRedux.housesReducer.isFetching
+
         
     }
 }
