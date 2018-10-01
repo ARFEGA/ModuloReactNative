@@ -52,16 +52,19 @@ _renderContent(){
   }else{
     return(
       <FlatList
-      data={this.props.list} /*Con renderItem, pasamos parametros de un objeto padre a un hobjeto hijo*/ /*valueCell es cada elemento de houseList */
-      renderItem={valueCell => this._renderItem(valueCell)}
-      /*keyExtractor es para identificar cada celda con una key.
-      Item es  cada elemento de houseList*/
-      keyExtractor={(item, i) => 'Cell' + item.id}
-      extraData={this.state}
-      numColumns={2}
-      style={{ paddingTop: 40 }}
-      /*ListFooterComponent={this._renderActivitiIndicator()} 
-      ListHeaderComponent={()=> this._renderActivitiIndicator()}*/ />
+        data={this.props.list} 
+        /*Con renderItem, pasamos parametros de un objeto padre a un hobjeto hijo*/ 
+        /*valueCell es cada elemento de houseList */
+        renderItem={valueCell => this._renderItem(valueCell)}
+        /*keyExtractor es para identificar cada celda con una key.
+        Item es  cada elemento de houseList*/
+        keyExtractor={(item, i) => 'Cell' + item.id}
+        extraData={this.state}
+        numColumns={2}
+        style={{ paddingTop: 40 }}
+        /*ListFooterComponent={this._renderActivitiIndicator()} 
+        ListHeaderComponent={()=> this._renderActivitiIndicator()}*/
+      />
     )
   }
 }

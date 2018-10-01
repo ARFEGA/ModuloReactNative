@@ -18,12 +18,12 @@ export function setItem (value) {
     type: types.HOUSE_SET_ITEM,
   value}
 }
-//Dispatch lanza la función reducer de reducer.js
+// Dispatch lanza la función reducer de reducer.js
 export function fetchHousesList () {
-  //getState nos aporta el initialState
-  return (dispatch, getState,api) => {
+  // getState nos aporta el initialState
+  return (dispatch, getState, extraArguments) => {
     dispatch(setFetching(true))
-    api.fetchHouses()  //Estas son las llamadas asincronas ue nos permite thunk
+    extraArguments.api.fetchHouses() // Estas son las llamadas asincronas ue nos permite thunk
       .then(res => {
         dispatch(setFetching(false))
         dispatch(setList(res.data.records))

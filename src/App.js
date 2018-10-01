@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar,TouchableOpacity,Text } from 'react-native'
 import { Router, Scene, Actions, Stack } from 'react-native-router-flux'
-import { Houses, Characters } from './components/sections/'
+import { Houses, Characters,CharacterDetail } from './components/sections/'
 import * as api from './api/'
 //Estos tres import siguientes son necesarios para redux
 import { createStore, applyMiddleware, combineReducers } from 'redux'
@@ -12,7 +12,32 @@ import * as reducers from './redux/'
 const reducer = combineReducers(reducers) 
 //Pasamos un argumento extra, que será la referencia  a api, por lo que tendremos la referencia a
 //la api injetada en actions.js
-const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)))
+const store = createStore(reducer, applyMiddleware(thunk.withExtraArgument({api: api})))
+const sceneDefaultStyles = {
+  navigationBarStyle:{backgroundColor: 'rgb(24,24,24)'},
+  backButtonTextStyle : 'yellow',
+  backButtonTintColor : 'yellow',
+  titleStyle : { color: 'yellow' },
+  backgroundColor: 'rgb(50,50,50)',
+}
+
+//Componente statelees (sin estado)
+const RightButton = props => (
+  <TouchableOpacity style={{padding:10}} onPress={()=> {}}>
+  {/*Si quisieramos un icono, añadiríamos un tag <Image*/}
+    <Text style={{color:'yellow' , fontWeight:'bold'}}>{'Añadir'}</Text>
+  </TouchableOpacity>
+)
+//El mismo componente pero con estado. Se llamaría así {<RightButtonBis/>}
+class RightButtonBis extends Component{
+  render(){
+    return(
+      <TouchableOpacity style={{ padding: 10 }} onPress={() => { }}>
+        <Text style={{ color: 'yellow', fontWeight: 'bold' }}>{'Añadir'}</Text>
+      </TouchableOpacity>
+    )
+  }
+}
 
 export default class App extends Component {
   componentWillMount () {
@@ -20,7 +45,7 @@ export default class App extends Component {
     //Status bar en blanco, la hora, la señal, la batería etc..
     StatusBar.setBarStyle('light-content')
   }
-
+  
   render () {
     return (
       <Provider store={store}>
@@ -36,12 +61,14 @@ export default class App extends Component {
             <Scene 
               key='characters' 
               component={Characters} 
-              title='Characters' 
-              navigationBarStyle={{ backgroundColor: 'rgb(24,24,24)'}}
-              backButtonTextStyle={'yellow'}
-              backButtonTintColor={'yellow'}
-              titleStyle={{color : 'yellow'}}
-             
+             {...sceneDefaultStyles}
+              //renderRightButton={<RightButtonBis/>}
+              renderRightButton={RightButton}
+            />
+            <Scene
+              key='characterDetail'
+              component={CharacterDetail}
+              {...sceneDefaultStyles}
               
             />
           </Stack>
