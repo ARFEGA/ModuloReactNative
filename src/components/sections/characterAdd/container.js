@@ -1,10 +1,10 @@
-import CharacterDetail from './view'
+import CharacterAdd from './view'
 import {connect} from 'react-redux'
 
 const mapStateToProps= (stateRedux) => {
     return {
         
-        character: stateRedux.charactersReducer.item,
+        //character: stateRedux.charactersReducer.item,
         
     }
 }
@@ -15,4 +15,4 @@ const mapDispatchToProps= (dispatch,props) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterAdd)

@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import { StatusBar,TouchableOpacity,Text } from 'react-native'
 import { Router, Scene, Actions, Stack } from 'react-native-router-flux'
-import { Houses, Characters,CharacterDetail } from './components/sections/'
+import { Houses, Characters,CharacterDetail,CharacterAdd } from './components/sections/'
 import * as api from './api/'
 //Estos tres import siguientes son necesarios para redux
 import { createStore, applyMiddleware, combineReducers } from 'redux'
@@ -23,7 +23,7 @@ const sceneDefaultStyles = {
 
 //Componente statelees (sin estado)
 const RightButton = props => (
-  <TouchableOpacity style={{padding:10}} onPress={()=> {}}>
+  <TouchableOpacity style={{ padding: 10 }} onPress={() => Actions.characterAdd()}>
   {/*Si quisieramos un icono, añadiríamos un tag <Image*/}
     <Text style={{color:'yellow' , fontWeight:'bold'}}>{'Añadir'}</Text>
   </TouchableOpacity>
@@ -32,7 +32,7 @@ const RightButton = props => (
 class RightButtonBis extends Component{
   render(){
     return(
-      <TouchableOpacity style={{ padding: 10 }} onPress={() => { }}>
+      <TouchableOpacity style={{ padding: 10 }} onPress={() => Actions.characterAdd()}>
         <Text style={{ color: 'yellow', fontWeight: 'bold' }}>{'Añadir'}</Text>
       </TouchableOpacity>
     )
@@ -56,7 +56,7 @@ export default class App extends Component {
               key='houses'
               component={Houses}
               title='Houses'
-              initial={true} 
+              //initial={true} 
             />
             <Scene 
               key='characters' 
@@ -69,7 +69,13 @@ export default class App extends Component {
               key='characterDetail'
               component={CharacterDetail}
               {...sceneDefaultStyles}
-              
+            />
+            <Scene
+              key={'characterAdd'}
+              component={CharacterAdd}
+              title={'Add Character'}
+              {...sceneDefaultStyles}
+              initial={true}
             />
           </Stack>
         </Router>
