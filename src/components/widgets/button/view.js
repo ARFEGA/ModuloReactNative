@@ -1,20 +1,22 @@
 import React from 'react'
-import {TouchableOpacity,Text} from 'react-native'
+import {TouchableOpacity,Text,View} from 'react-native'
 import styles from './styles'
 
 
 export default class extends React.Component{
 static defaultProps={
-    textButton:'',
+    textButton:'Guardar',
     onPress:() => {},
 }
    
     render(){
         const { textButton,onPress } = this.props
         return(
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => onPress()}>
-                <Text style={styles.buttonText}>{textButton}</Text>
-            </TouchableOpacity>
+            <View style={{padding:20}}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => onPress()}>
+                    <Text style={styles.buttonText}>{textButton}</Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 }
