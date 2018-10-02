@@ -13,9 +13,12 @@ class ViewCharacters extends Component {
   }
 
   _renderItem (item, index) {
-    return <CharacterCell character={item} onCharacterPress={(character) => this.props.onCharacterTapped(character)}/>
+    return <CharacterCell 
+              character={item} 
+              onCharacterPress={(character) => this.props.onCharacterTapped(character)}
+              index={index}
+            />
   }
-
   render () {
     const {list, isFetching} = this.props
     console.log(list)
