@@ -13,6 +13,12 @@ export default class characterCell extends Component{
         index:0,
     }
 
+    constructor(props){
+        super(props)
+        this.state={
+            animation:'bounceInLeft'
+        }
+    }
 
 
     render(){
@@ -20,9 +26,11 @@ export default class characterCell extends Component{
         const image = {uri: character.image_dir}
         const animation = index % 2 ? 'bounceInLeft' : 'bounceInRight'
         //console.log("Personaje: " , character.nombre + ' ' + image.uri)
+        //onPress={() => this.setState({animation:'bounceOutRight'})}
+        //onPress={() => onCharacterPress(character)}
         return (
-            <Animatable.View animation={animation}>
-                <TouchableOpacity  style={styles.cellStyle} onPress={() => onCharacterPress(character)}>
+        <Animatable.View animation={this.state.animation} >
+                <TouchableOpacity style={styles.cellStyle} onPress={() => onCharacterPress(character)}>
                     <Image source={image} style={styles.imageCell} resizeMode={'cover'}/>
                     <View style={styles.detailCell}>
                         <Text style={[styles.label, styles.nameCell]}>{character.nombre} </Text>
