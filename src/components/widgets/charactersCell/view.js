@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, Image,Text,View } from 'react-native'
+import { TouchableOpacity, Image,Text,View,Animated } from 'react-native'
 import styles from './stylesCell'
 import * as Animatable from 'react-native-animatable'
 
@@ -13,12 +13,7 @@ export default class characterCell extends Component{
         index:0,
     }
 
-    constructor(props){
-        super(props)
-        this.state={
-            animation:'bounceInLeft'
-        }
-    }
+   
 
 
     render(){
@@ -29,7 +24,9 @@ export default class characterCell extends Component{
         //onPress={() => this.setState({animation:'bounceOutRight'})}
         //onPress={() => onCharacterPress(character)}
         return (
-        <Animatable.View animation={this.state.animation} >
+        //Animatable, objeto de react-native-animatable para animar acciones
+        //Se le indica el tipo de animación que se quiere: animation={this.state.animation
+        <Animatable.View animation={animation} >
                 <TouchableOpacity style={styles.cellStyle} onPress={() => onCharacterPress(character)}>
                     <Image source={image} style={styles.imageCell} resizeMode={'cover'}/>
                     <View style={styles.detailCell}>

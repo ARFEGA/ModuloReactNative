@@ -6,6 +6,7 @@ import { HouseCell } from '../../widgets/'
 import { fetchHouses } from '../../../api/index'
 import { connect } from 'react-redux'
 import * as HousesActions from '../../../redux/houses/actions'
+import Spinner from 'react-native-spinkit'
 
 class ViewHouses extends Component {
   // Propiedades de componente
@@ -41,7 +42,8 @@ class ViewHouses extends Component {
     // isFetching puede ser true o false, por lo tanto nos sirve
     return (
       <View style={{flex:1 , alignItems:'center' , justifyContent:'center' }}>
-        <ActivityIndicator size='large' color={'yellow'} animating={this.props.isFetching} />
+        {/*<ActivityIndicator size='large' color={'yellow'} animating={this.props.isFetching} />*/}
+        <Spinner size={80} type={'ChasingDots'} color={'#FFF'} isVisible={this.props.isFetching} />
       </View>
     )
   }

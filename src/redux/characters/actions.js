@@ -75,8 +75,8 @@ export function fetchHouseCharacters () {
     extraArguments.api
     .fetchHouseCharacters(house.id)
         .then(res => {
-            dispatch(setFetching(false))
             dispatch(setList(res.data.records))
+            dispatch(setFetching(false))
          }).catch(err => {
             dispatch(setFetching(false))
             console.log(err)

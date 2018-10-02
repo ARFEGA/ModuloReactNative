@@ -15,7 +15,7 @@ export default class  extends React.Component{
     }
 
     _Alert(){
-    Alert.alert("Botón pulsado","Botón pulsado")
+        Alert.alert("Botón pulsado","Botón pulsado")
     }
 
     _onShowImage(){

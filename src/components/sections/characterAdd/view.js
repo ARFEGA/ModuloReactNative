@@ -18,6 +18,8 @@ export default class  extends React.Component{
             }
             this.options={
                 title: 'Seleccionar una imagen',
+                maxWidth:640,
+                maxHeight:640,
                 storageOPtions:{
                     skipBackup:true,
                     path:'images'
@@ -120,7 +122,10 @@ export default class  extends React.Component{
                     {this._renderImageInput()}
                 </View>
                 <View>
-                   <MyButton textButton={'Guardar'.toLocaleUpperCase()} onPress={() => this._onSubmit()}/>
+                   <MyButton 
+                        textButton={'Guardar'.toLocaleUpperCase()} 
+                        onPress={() => this._onSubmit()}
+                        isFetching={this.props.isFetching}/>
                 </View>
                 {/*https://github.com/react-community/react-native-image-picker*/}
 
