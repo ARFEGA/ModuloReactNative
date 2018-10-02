@@ -16,3 +16,9 @@ export function fetchHouseCharacters (houseId) {
   const endPoint = `/personajes?casa=${houseId}`
   return axios.get(endPoint)
 }
+
+
+export function postHouseCharacter(characterToApi){
+  const url = '/personajes'
+  return axios.post(url, characterToApi)
+}

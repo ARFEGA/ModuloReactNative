@@ -1,5 +1,11 @@
 import CharacterAdd from './view'
 import {connect} from 'react-redux'
+import * as CharacterActions from '../../../redux/characters/actions'
+
+
+
+
+
 
 const mapStateToProps= (stateRedux) => {
     return {
@@ -13,7 +19,11 @@ const mapStateToProps= (stateRedux) => {
 
 const mapDispatchToProps= (dispatch,props) => {
     return{
+            onSubmitCharacter: (data) => {
+                dispatch(CharacterActions.postHouseCharacter(data))//Todo
+            }
 
+        
     }
 }
 

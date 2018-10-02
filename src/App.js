@@ -40,6 +40,9 @@ class RightButtonBis extends Component{
 }
 
 export default class App extends Component {
+  //WillMount, DidMount, etc.. solo se llamarán cuando son creadas las pantallas.
+  //si la pantalla es accedida a través de un Actions.pop(), no se lanzarán.
+  //Se pueden resetear meidante Action.nombre_key({type:'reset'})
   componentWillMount () {
     api.configureAxios()
     //Status bar en blanco, la hora, la señal, la batería etc..
@@ -56,7 +59,7 @@ export default class App extends Component {
               key='houses'
               component={Houses}
               title='Houses'
-              //initial={true} 
+              initial={true} 
             />
             <Scene 
               key='characters' 
@@ -75,7 +78,7 @@ export default class App extends Component {
               component={CharacterAdd}
               title={'Add Character'}
               {...sceneDefaultStyles}
-              initial={true}
+              
             />
           </Stack>
         </Router>

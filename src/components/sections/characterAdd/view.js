@@ -78,6 +78,29 @@ export default class  extends React.Component{
             </View>
         )
     }
+    _validateForm(){
+        // un string vacío es false, esto: '' sería false
+        const {name,age,image} = this.state
+        if(name && age && image){
+            return true
+        }else{
+            return false
+        }
+    }
+    _onSubmit(){
+        if(this._validateForm()){
+            const { name, age, image } = this.state
+            const dataForAPI={
+                nombre:name,
+                edad:age,
+                image:image.data,
+            }
+            this.props.onSubmitCharacter(dataForAPI)
+        }else{
+            Alert.alert('Atención','Complete todos los campos.')
+        }
+    }
+
     render(){
         const {name,age} = this.state
         return (
@@ -97,7 +120,7 @@ export default class  extends React.Component{
                     {this._renderImageInput()}
                 </View>
                 <View>
-                   <MyButton textButton={'Guardar'.toLocaleUpperCase()}/>
+                   <MyButton textButton={'Guardar'.toLocaleUpperCase()} onPress={() => this._onSubmit()}/>
                 </View>
                 {/*https://github.com/react-community/react-native-image-picker*/}
 
