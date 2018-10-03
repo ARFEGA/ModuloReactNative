@@ -31,6 +31,13 @@ class ViewCharacters extends Component {
     )
   }
 
+  //Para paginación, pero no está terminado.
+  _onEndReached(i){
+    console.log("onEndeReached i: " , i)
+    //this.props.updatePage()
+    //this.props.fetchHouseCharacters()
+  }
+
 
   _renderContent() {
     if (this.props.isFetching) {
@@ -41,6 +48,12 @@ class ViewCharacters extends Component {
           data={this.props.list}
           renderItem={({ item, index }) => this._renderItem(item, index)}
           keyExtractor={(item, i) => 'character' + i}
+          //Para cargar nuevamente las celdas haciendo el gesto swipe
+          onRefresh={() => this.props.fetchHousesCharacters()}
+          refreshing = {this.props.isFetching}
+          //Para paginar
+          onEndReached = {(i) => this._onEndReached(i)}
+          //********************************************************/
         />
       )
     }

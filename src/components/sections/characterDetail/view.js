@@ -2,6 +2,7 @@ import React from 'react'
 import {View,Text,Image,TouchableOpacity,Alert,Animated} from 'react-native'
 import styles from './styles'
 import {MyButton} from '../../widgets'
+import {Actions} from 'react-native-router-flux'
 
 
 export default class  extends React.Component{
@@ -54,7 +55,8 @@ export default class  extends React.Component{
                     <Text style={styles.text}>{edad} </Text>
                 </View>
                 <View style={{margin: 20}}>
-                    <MyButton textButton={'Editar'} onPress={() => this._Alert()}/>
+                    <MyButton textButton={'Editar'} 
+                    onPress={() => Actions.characterAdd({character,isEdit:true})}/>
                 </View>
                 <View style={{ margin: 20 }}>
                     <MyButton textButton={(imageExpanded ? 'Ocultar Imagen' : 'Expandir imagen').toUpperCase()} onPress={() => this._onShowImage()} />

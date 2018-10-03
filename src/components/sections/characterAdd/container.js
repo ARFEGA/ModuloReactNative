@@ -21,10 +21,11 @@ const mapDispatchToProps= (dispatch,props) => {
     return{
             onSubmitCharacter: (data) => {
                 dispatch(CharacterActions.postHouseCharacter(data))//Todo
+            },
+            onChangeCharacter: (data) => {
+                dispatch(CharacterActions.patchHouseCharacter(data))//Todo
             }
-
-        
-    }
+        }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CharacterAdd)

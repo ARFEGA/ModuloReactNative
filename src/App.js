@@ -80,6 +80,8 @@ export default class App extends Component {
               {...sceneDefaultStyles}
               
             />
+            
+
           </Stack>
         </Router>
       </Provider>

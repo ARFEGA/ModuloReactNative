@@ -10,11 +10,18 @@ export default class  extends React.Component{
 
         constructor(props){
             super(props)
-            this.state={
-                name:'',
-                age:'',
-                image:null,
-               
+            if(props.isEdit && props.character){
+                this.state = {
+                    name: props.character.nombre,
+                    age: props.character.edad.toString(),
+                    image: {preview:{uri: props.character.image_dir}},
+                }
+            }else{
+                this.state={
+                    name:'',
+                    age:'',
+                    image:null,
+                }
             }
             this.options={
                 title: 'Seleccionar una imagen',
@@ -92,12 +99,23 @@ export default class  extends React.Component{
     _onSubmit(){
         if(this._validateForm()){
             const { name, age, image } = this.state
-            const dataForAPI={
-                nombre:name,
-                edad:age,
-                image:image.data,
+            if(this.props.isEdit){
+                const characterId = this.props.character.id
+                const imageData = this.state.image.data ? {image : this.state.image.data} : null
+                const dataForAPI = {
+                    ...imageData,
+                    nombre: name,
+                    edad: age,
+                }
+                this.props.onChageCharacter(dataForAPI)
+            }else{
+                const dataForAPI={
+                    nombre:name,
+                    edad:age,
+                    image:image.data,
+                }
+                this.props.onSubmitCharacter(dataForAPI)
             }
-            this.props.onSubmitCharacter(dataForAPI)
         }else{
             Alert.alert('Atención','Complete todos los campos.')
         }

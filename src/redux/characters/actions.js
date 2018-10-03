@@ -75,6 +75,12 @@ export function fetchHouseCharacters () {
     extraArguments.api
     .fetchHouseCharacters(house.id)
         .then(res => {
+          //Idea para concatenar listas y hacer paginación
+            /*const currentList = getState().charactersReducer.list
+            const List = res.data.records
+            const newList = [...currentList,...newList]
+            console.log("Lista currentList: " , currentList)
+            dispatch(setList(List))*/
             dispatch(setList(res.data.records))
             dispatch(setFetching(false))
          }).catch(err => {
